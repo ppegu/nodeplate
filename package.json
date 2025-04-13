@@ -1,8 +1,8 @@
 {
-    "name": "@ppegu/nodeplate",
+    "name": "templode",
     "version": "1.0.0",
     "bin": {
-        "nodeplate": "cli.js"
+        "templode": "cli.js"
     },
     "main": "cli.js",
     "type": "module",
