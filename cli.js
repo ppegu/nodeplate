@@ -58,10 +58,7 @@ async function main() {
 
   spinner.start("Copying template files...");
   fs.copySync(path.join(templatesDir, template), projectDir, {
-    filter: (src) => {
-      const baseName = path.basename(src);
-      return baseName !== "." && baseName !== "..";
-    }
+    filter: () => true // Ensures all files, including hidden ones, are copied
   });
   spinner.succeed("Template files copied.");
 
