@@ -1,0 +1,12 @@
+{
+    "apps": [
+        {
+            "name": "app-name",
+            "script": "node",
+            "args": "./index.js",
+            "env": {
+                "NODE_ENV": "production"
+            }
+        }
+    ]
+}

@@ -1,0 +1,61 @@
+{
+  "name": "app-name",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "node --import ./register-loader.mjs src/index.ts",
+    "lint": "eslint ./src --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "format": "prettier --write",
+    "format:check": "prettier --check \"src/**/*.ts\"",
+    "postinstall": "husky install",
+    "prebuild": "rm -rf dist",
+    "build": "tsc",
+    "postbuild": "tsc-alias -p tsconfig.json",
+    "release": "release-it"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "author": "Pran pegu",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.24.0",
+    "@typescript-eslint/eslint-plugin": "^8.29.1",
+    "eslint": "^9.24.0",
+    "eslint-config-prettier": "^10.1.2",
+    "eslint-import-resolver-typescript": "^4.3.2",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.6",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.1",
+    "prettier": "^3.5.3",
+    "release-it": "^18.1.2"
+  },
+  "release-it": {
+    "git": {
+      "requireCleanWorkingDir": true,
+      "tagName": "v${version}",
+      "commitMessage": "Release v${version}",
+      "tagAnnotation": "Release v${version}",
+      "push": true
+    },
+    "npm": {
+      "publish": false
+    },
+    "hooks": {
+      "before:init": [
+        "npm run lint",
+        "npm run build"
+      ]
+    }
+  }
+}

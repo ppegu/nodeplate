@@ -1,0 +1,39 @@
+{
+    "name": "nodeplate",
+    "version": "1.0.0",
+    "bin": {
+        "nodeplate": "cli.js"
+    },
+    "main": "cli.js",
+    "type": "module",
+    "scripts": {
+        "start": "node cli.js"
+    },
+    "dependencies": {
+        "fs-extra": "^11.1.1",
+        "inquirer": "^9.2.3",
+        "ora": "^6.1.2"
+    },
+    "author": "Pran Pegu",
+    "license": "ISC",
+    "description": "A CLI tool to create Node.js apps from templates.",
+    "devDependencies": {
+        "release-it": "^18.1.2"
+    },
+    "release-it": {
+        "npm": {
+            "publish": true,
+            "access": "public"
+        },
+        "github": {
+            "release": true
+        },
+        "hooks": {
+            "beforeStart": "git diff-index --quiet HEAD -- || (echo 'Working directory is not clean. Please commit or stash your changes.' && exit 1)"
+        }
+    },
+    "files": [
+        "templates",
+        "cli.js"
+    ]
+}
