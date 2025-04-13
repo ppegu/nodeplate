@@ -35,6 +35,7 @@
     },
     "files": [
         "templates",
-        "cli.js"
+        "cli.js",
+        "utils"
     ]
 }
