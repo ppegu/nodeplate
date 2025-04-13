@@ -57,7 +57,12 @@ async function main() {
   spinner.succeed("Project folder created.");
 
   spinner.start("Copying template files...");
-  fs.copySync(path.join(templatesDir, template), projectDir);
+  fs.copySync(path.join(templatesDir, template), projectDir, {
+    filter: (src) => {
+      const baseName = path.basename(src);
+      return baseName !== "." && baseName !== "..";
+    }
+  });
   spinner.succeed("Template files copied.");
 
   updatePackageName(projectDir, projectName);
