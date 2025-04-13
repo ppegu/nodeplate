@@ -7,7 +7,8 @@
     "main": "cli.js",
     "type": "module",
     "scripts": {
-        "start": "node cli.js"
+        "start": "node cli.js",
+        "release": "release-it"
     },
     "dependencies": {
         "fs-extra": "^11.1.1",
