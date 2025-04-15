@@ -121,3 +121,5 @@ main().catch((err) => {
   console.error("An error occurred:", err);
   process.exit(1);
 });
+
+export default main;

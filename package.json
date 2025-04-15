@@ -1,41 +1,44 @@
 {
-    "name": "templode",
-    "version": "1.0.4",
-    "bin": {
-        "templode": "cli.js"
+  "name": "templode",
+  "version": "1.0.4",
+  "bin": {
+    "templode": "cli.js"
+  },
+  "main": "cli.js",
+  "type": "module",
+  "scripts": {
+    "start": "node cli.js",
+    "release": "release-it",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "dependencies": {
+    "fs-extra": "^11.1.1",
+    "inquirer": "^9.2.3",
+    "ora": "^6.1.2"
+  },
+  "author": "Pran Pegu",
+  "license": "ISC",
+  "description": "A CLI tool to create Node.js apps from templates.",
+  "devDependencies": {
+    "release-it": "^18.1.2",
+    "jest": "^29.0.0",
+    "@jest/globals": "^29.0.0"
+  },
+  "release-it": {
+    "npm": {
+      "publish": true,
+      "access": "public"
     },
-    "main": "cli.js",
-    "type": "module",
-    "scripts": {
-        "start": "node cli.js",
-        "release": "release-it"
+    "github": {
+      "release": true
     },
-    "dependencies": {
-        "fs-extra": "^11.1.1",
-        "inquirer": "^9.2.3",
-        "ora": "^6.1.2"
-    },
-    "author": "Pran Pegu",
-    "license": "ISC",
-    "description": "A CLI tool to create Node.js apps from templates.",
-    "devDependencies": {
-        "release-it": "^18.1.2"
-    },
-    "release-it": {
-        "npm": {
-            "publish": true,
-            "access": "public"
-        },
-        "github": {
-            "release": true
-        },
-        "hooks": {
-            "beforeStart": "git diff-index --quiet HEAD -- || (echo 'Working directory is not clean. Please commit or stash your changes.' && exit 1)"
-        }
-    },
-    "files": [
-        "templates",
-        "cli.js",
-        "utils"
-    ]
+    "hooks": {
+      "beforeStart": "git diff-index --quiet HEAD -- || (echo 'Working directory is not clean. Please commit or stash your changes.' && exit 1)"
+    }
+  },
+  "files": [
+    "templates",
+    "cli.js",
+    "utils"
+  ]
 }
