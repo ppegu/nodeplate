@@ -5,6 +5,7 @@ import path from "path";
 import inquirer from "inquirer";
 import ora from "ora";
 import { updatePackageName, createNvmrcFile } from "./utils/fileUtils.js";
+import { checkProjectDirExists } from "./utils/prechecks.js";
 import { fileURLToPath } from "url";
 import { execSync } from "child_process";
 
@@ -45,21 +46,35 @@ async function main() {
 
   const projectDir = path.resolve(process.cwd(), projectName);
 
-  if (fs.existsSync(projectDir)) {
-    console.error(
-      `Directory ${projectName} already exists. Please choose a different name.`
-    );
-    process.exit(1);
-  }
+  await prechecks({
+    projectDir,
+    projectName
+  });
 
   const spinner = ora("Creating project folder...").start();
   fs.mkdirSync(projectDir);
   spinner.succeed("Project folder created.");
 
   spinner.start("Copying template files...");
+
   fs.copySync(path.join(templatesDir, template), projectDir, {
-    filter: () => true // Ensures all files, including hidden ones, are copied
+    filter: (src) => {
+      const baseName = path.basename(src);
+      if (baseName === "node_modules") return false;
+      return true;
+    }
   });
+
+  // Ensure .gitignore is copied
+  const gitignorePath = path.join(templatesDir, template, ".gitignore");
+  if (fs.existsSync(gitignorePath)) {
+    fs.copySync(gitignorePath, path.join(projectDir, ".gitignore"));
+  } else {
+    console.log(
+      "Warning: .gitignore file not found in template. Please create one manually."
+    );
+  }
+
   spinner.succeed("Template files copied.");
 
   updatePackageName(projectDir, projectName);
