@@ -26,6 +26,12 @@ export async function resolve(
   return defaultResolve(specifier, context, defaultResolveFn);
 }
 
-export async function load(url, context, defaultLoadFN = defaultLoad) {
-  return defaultLoad(url, context, defaultLoadFN);
+export async function load(url, context, defaultLoadFn = defaultLoad) {
+  try {
+    const result = await defaultLoad(url, context, defaultLoadFn);
+    return result;
+  } catch (err) {
+    console.error("\x1b[31m%s\x1b[0m", "Error:", err);
+    process.exit(1);
+  }
 }
